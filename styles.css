@@ -1,65 +1,77 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+/* 整体页面设置 */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #0A0A0A;
+    background-color: #111;
     color: white;
     text-align: center;
+    margin: 0;
+    padding: 0;
 }
 
-.quiz-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+#quiz-container {
+    margin-top: 50px;
 }
 
-.question-container {
-    margin-bottom: 20px;
+h1 {
+    font-size: 2.5em;
+    color: #e60000;  /* 深红色 */
+}
+
+#timer {
+    font-size: 1.5em;
+    color: #e60000;
 }
 
 #question {
-    font-size: 24px;
-    margin-bottom: 30px;
+    font-size: 1.8em;
+    margin-top: 20px;
+}
+
+.options {
+    margin-top: 30px;
 }
 
 .option {
-    background-color: #D50000;
+    background-color: #333;
+    border: 2px solid #e60000;
     color: white;
-    border: none;
-    padding: 10px 20px;
+    padding: 15px 30px;
     margin: 10px;
-    font-size: 18px;
+    font-size: 1.2em;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s ease;
+    width: 80%;
+    max-width: 500px;
 }
 
 .option:hover {
-    background-color: #FF1744;
+    background-color: #e60000;
 }
 
-.timer-container {
-    position: absolute;
-    top: 0;
-    right: 10px;
-    font-size: 20px;
+#result {
+    display: none;
+    margin-top: 50px;
 }
 
-.result-container {
-    padding: 20px;
-    background-color: #2C2C2C;
-    border-radius: 10px;
+.hidden {
+    display: none;
 }
 
+/* 控制结果页面的风格 */
 #result-title {
-    font-size: 28px;
-    margin-bottom: 20px;
+    font-size: 2em;
+    color: #e60000;
 }
 
 #result-description {
-    font-size: 20px;
+    font-size: 1.5em;
+    margin-top: 20px;
+}
+
+/* 黑红风格的倒计时 */
+#timer {
+    font-size: 3em;
+    font-weight: bold;
+    margin-top: 30px;
+    color: #e60000;
 }
