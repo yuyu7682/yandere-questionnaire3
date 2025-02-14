@@ -13,7 +13,7 @@ const questions = [
     },
     {
         question: "如果你有选择的权利，你想怎么过我们的生活？",
-        options: ["依赖我，永远不离开", "我希望有更多的自由", "我不需要任何束缚"]
+        options: ["依赖我，永远不离开", "希望有更多的自由", "我不需要任何束缚"]
     },
     {
         question: "你是否愿意为了我放弃一切？",
@@ -130,6 +130,32 @@ function showReaction(index) {
     ];
 
     alert(reactions[currentQuestionIndex][index]);  // 显示不同的情感反应
+}
+
+function nextQuestion(selectedOptionIndex) {
+    const question = questions[currentQuestionIndex];
+    
+    // 如果没有选择答案，给默认0分
+    if (selectedOptionIndex === undefined) {
+        score[0] += 0;  // 默认给0分
+        ignoredAnswers++;  // 记录无视次数
+        alert("你无视了我的问题！告诉我为什么要无视我？");
+    } else {
+        score[selectedOptionIndex] += question.scores[selectedOptionIndex];  // 增加对应的分数
+    }
+
+    if (ignoredAnswers < 3) {
+        currentQuestionIndex++;  // 继续下一题
+        if (currentQuestionIndex < questions.length) {
+            displayQuestion();
+            resetTimer();
+        } else {
+            showResult();
+        }
+    } else {
+        alert("你竟敢连续无视我？游戏结束！");
+        window.close();  // 关闭网页
+    }
 }
 
 function startTimer() {
