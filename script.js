@@ -111,7 +111,11 @@ function nextQuestion(selectedOptionIndex) {
 
 function getReaction(index) {
     const reactions = [
-        "乖，真是我的宝贝", "你不想让我完全掌控吗？", "好吧，你的反抗让我不悦"
+    {
+        "乖，真是我的宝贝", "你不想让我完全掌控吗？", "好吧，你的反抗让我不太满意，但没关系"
+    },
+    {
+        "真乖", "为什么？", "希望你能好好想想"
     ];
     return reactions[index];
 }
