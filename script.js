@@ -140,7 +140,7 @@ function startTimer() {
         document.getElementById('timer').innerText = timeLeft;
         if (timeLeft <= 0) {
             clearInterval(timer);
-            askWhyIgnored(); 亲爱的别让我等太久，快回答吧
+            askWhyIgnored(); 
         }
     }, 1000);
 }
