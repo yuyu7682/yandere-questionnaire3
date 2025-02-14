@@ -12,10 +12,6 @@ const questions = [
         options: ["顺从，我不会离开", "我会挣扎，但最终会屈服", "我会逃跑，拒绝接受束缚"]
     },
     {
-        question: "如果我让你做一个决定，你会选择：永远依赖我，还是试图逃脱？",
-        options: ["我会依赖你，永远不离开", "我会逃脱，但我心里清楚自己不能离开你", "我不需要任何人，我要自由"]
-    },
-    {
         question: "如果我决定你只能在我的监视下生活，你会如何应对？",
         options: ["顺从，我会承受一切", "反抗，我不想被束缚", "我会尽量逃离，不想被控制"]
     },
@@ -127,7 +123,6 @@ function showReaction(index) {
             "你虽然反抗，但内心早已动摇，你无法摆脱我。",
             "你想逃跑？我会让你后悔的。"
         ],
-        // 更多的反应继续...
     ];
 
     alert(reactions[currentQuestionIndex][index]);  // 显示不同的情感反应
@@ -179,4 +174,11 @@ function showResult() {
         };
     }
 
-    document.get
+    document.getElementById('result-title').innerText = finalResult.title;
+    document.getElementById('result-description').innerText = finalResult.description;
+    document.getElementById('quiz-container').classList.add('hidden');
+    document.getElementById('result').classList.remove('hidden');
+}
+
+// 启动问卷
+startQuiz();
