@@ -1,46 +1,69 @@
 const questions = [
     {
-        question: "你是否愿意在我面前彻底丧失自己？",
-        options: ["愿意，我会成为你的一切", "我不确定，但我会尽量", "绝不，我需要自由"]
+        question: "你觉得我应该怎样才会彻底属于我？",
+        options: ["完全依赖我", "有自己的空间", "我不需要任何束缚"]
     },
     {
-        question: "如果我告诉你，你的每一步都在我的掌控之中，你会如何反应？",
-        options: ["顺从，接受所有", "反抗，但内心开始动摇", "拒绝，我要逃离"]
+        question: "如果我说你只能属于我一个人，你会怎么做？",
+        options: ["顺从", "犹豫", "拒绝"]
     },
     {
-        question: "我不会让你自由，你会如何反应？",
-        options: ["顺从，我不会离开", "我会挣扎，但最终会屈服", "我会逃跑，拒绝接受束缚"]
+        question: "我为你做了这么多，你还想要什么？",
+        options: ["更多的关心", "你已经做得足够了", "我不需要任何东西"]
     },
     {
-        question: "如果我决定你只能在我的监视下生活，你会如何应对？",
-        options: ["顺从，我会承受一切", "反抗，我不想被束缚", "我会尽量逃离，不想被控制"]
+        question: "如果你有选择的权利，你想怎么过我们的生活？",
+        options: ["依赖我，永远不离开", "我希望有更多的自由", "我不需要任何束缚"]
     },
     {
-        question: "你是否想要我彻底控制你，直到你再也没有反抗的能力？",
-        options: ["是的，我会成为你的奴隶", "不确定，但我还是希望留在你身边", "不愿意，我不要成为你的玩物"]
+        question: "你是否愿意为了我放弃一切？",
+        options: ["愿意", "犹豫", "拒绝"]
     },
     {
-        question: "如果你选择了背叛我，你知道会有什么后果吗？",
-        options: ["我不会背叛你，我会忠诚", "我不知道，但我也想逃离", "背叛你？我永远不会原谅自己"]
+        question: "如果你不理你，我会怎么办？",
+        options: ["主动找我", "等我主动", "我会离开"]
     },
     {
-        question: "你是否愿意为我丧失所有的自我，成为我的专属？",
-        options: ["愿意，永远都只属于你", "犹豫，我不知道自己能不能承受", "不愿意，外界才是我真正的自由"]
+        question: "你觉得自己会一直属于我吗？",
+        options: ["是的，永远属于你", "不确定", "我不想属于任何人"]
     },
     {
-        question: "如果你无视我的话，我会怎么办？",
-        options: ["顺从，我会主动找你", "等待你来找我，内心充满不安", "我会离开，不再依赖你"]
+        question: "如果我说‘你必须遵从我’，你会怎么办？",
+        options: ["顺从", "反抗", "无所谓"]
     },
     {
-        question: "你是否愿意放弃所有联系外界的机会，只为了留在我身边？",
-        options: ["我愿意，永远都只属于你", "我不确定，但我还是希望留在你身边", "我不愿意，外界才是我真正的自由"]
+        question: "你觉得我们之间的关系应该是什么样的？",
+        options: ["完全依赖我", "彼此独立，但还是在一起", "我不想依赖任何人"]
+    },
+    {
+        question: "如果我让你失望了，你怎么办？",
+        options: ["会原谅你", "感到不满，但还是会原谅", "我会离开"]
+    },
+    {
+        question: "如果我控制了你的一切，你会如何反应？",
+        options: ["顺从", "抗拒", "无所谓"]
+    },
+    {
+        question: "你愿意为我牺牲吗？",
+        options: ["愿意", "犹豫", "不愿意"]
+    },
+    {
+        question: "如果你和我发生争执，你会怎么做？",
+        options: ["主动道歉", "我会反抗", "我会离开"]
+    },
+    {
+        question: "你希望我对你有多少占有欲？",
+        options: ["完全掌控", "适度的占有欲", "不需要占有欲"]
+    },
+    {
+        question: "如果我要求你做到什么，你会感到如何？",
+        options: ["顺从", "怀疑", "拒绝"]
     },
 ];
 
 let currentQuestionIndex = 0;
 let timer;
 let score = [0, 0, 0]; // 每个选项对应的分数
-let ignoredAnswers = 0; // 用于记录无视的次数
 
 // 随机分配每个选项的分数
 function randomizeScores() {
@@ -74,28 +97,39 @@ function displayQuestion() {
 
 function nextQuestion(selectedOptionIndex) {
     const question = questions[currentQuestionIndex];
-    
-    // 如果没有选择答案，给默认0分
-    if (selectedOptionIndex === undefined) {
-        score[0] += 0;  // 默认给0分
-        ignoredAnswers++;  // 记录无视次数
-        alert("你无视了我的问题！告诉我为什么要无视我？");
-    } else {
-        score[selectedOptionIndex] += question.scores[selectedOptionIndex];  // 增加对应的分数
-    }
+    score[selectedOptionIndex] += question.scores[selectedOptionIndex];  // 增加对应的分数
+    showReaction(selectedOptionIndex);  // 显示个性化的反应
+    currentQuestionIndex++;
 
-    if (ignoredAnswers < 3) {
-        currentQuestionIndex++;  // 继续下一题
-        if (currentQuestionIndex < questions.length) {
-            displayQuestion();
-            resetTimer();
-        } else {
-            showResult();
-        }
+    if (currentQuestionIndex < questions.length) {
+        displayQuestion();
+        resetTimer();
     } else {
-        alert("你竟敢连续无视我？游戏结束！");
-        window.close();  // 关闭网页
+        showResult();
     }
+}
+
+function showReaction(index) {
+    const reactions = [
+        [
+            "你依赖我？真乖，我会好好宠爱你。",
+            "你竟然想要一点自由？你可别以为我会让你逃脱。",
+            "哦？你不需要我？那可不行，不能让你这么轻松离开。"
+        ],
+        [
+            "顺从我，你永远都是我唯一的存在。",
+            "你竟然有犹豫的心思？我可不会放过你。",
+            "拒绝我？不，不会有这种机会。"
+        ],
+        [
+            "多一些关心？你已经得到了我所有的关注，你明白吗？",
+            "你不觉得已经够多了吗？你不会拒绝我吧？",
+            "你不需要任何东西？你敢说你不想要我更多的关注？"
+        ],
+        // 更多的反应可以继续丰富...
+    ];
+
+    alert(reactions[currentQuestionIndex][index]);  // 显示不同的情感反应
 }
 
 function startTimer() {
@@ -105,7 +139,7 @@ function startTimer() {
         document.getElementById('timer').innerText = timeLeft;
         if (timeLeft <= 0) {
             clearInterval(timer);
-            nextQuestion();  // 如果时间到未选答案，默认0分并跳转到下一题
+            nextQuestion(1);  // 默认选项，自动选中第二个
         }
     }, 1000);
 }
@@ -120,24 +154,32 @@ function showResult() {
     if (score[0] > score[1] && score[0] > score[2]) {
         finalResult = {
             title: "彻底沦陷",
-            description: "你完全沦陷在我的掌控中，再也无法逃脱。"
+            description: "你已完全丧失了自己的独立，只剩下对我的依赖。你沉溺在我的掌控中，再也无法逃脱。"
         };
     } else if (score[1] > score[0] && score[1] > score[2]) {
         finalResult = {
             title: "危险依赖",
-            description: "你在挣扎，但你知道，你最终会依赖我。"
+            description: "你内心充满挣扎，但你的心依然离不开我。你无法摆脱这份依赖，最后你会在我的掌控下迷失自己。"
         };
     } else {
         finalResult = {
             title: "无情的背叛",
-            description: "你背叛了我，虽然你曾试图逃离，但你将为此付出代价。"
+            description: "你敢挑战我的掌控，试图摆脱我。你以为你能逃脱吗？你会被我完全摧毁，永远无法再反抗。"
         };
     }
 
     document.getElementById('result-title').innerText = finalResult.title;
     document.getElementById('result-description').innerText = finalResult.description;
-    document.getElementById('quiz-container').classList.add('hidden');
-    document.getElementById('result').classList.remove('hidden');
+    document.getElementById('quiz-container').style.display = 'none';
+    document.getElementById('result-container').style.display = 'block';
 }
 
-startQuiz();
+function restartQuiz() {
+    currentQuestionIndex = 0;
+    score = [0, 0, 0];
+    document.getElementById('result-container').style.display = 'none';
+    document.getElementById('quiz-container').style.display = 'block';
+    startQuiz();
+}
+
+startQuiz();  // 开始问卷
