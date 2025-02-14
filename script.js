@@ -5,11 +5,11 @@ const questions = [
     },
     {
         question: "如果我告诉你，你的每一步都在我的掌控之中，你会如何反应？",
-        options: ["顺从，接受所有", "反抗，但内心开始动摇", "拒绝，我要逃离"]
+        options: ["顺从，接受所有", "害怕", "反抗"]
     },
     {
         question: "我不会让你自由，你会如何反应？",
-        options: ["顺从，我不会离开", "我会挣扎，但最终会屈服", "我会逃跑，拒绝接受束缚"]
+        options: ["不会离开你身边的", "挣扎", "逃跑"]
     },
     {
         question: "如果我决定你只能在我的监视下生活，你会如何应对？",
@@ -29,7 +29,7 @@ const questions = [
     },
     {
         question: "如果你无视我的话，我会怎么办？",
-        options: ["顺从，我会主动找你", "等待你来找我，内心充满不安", "我会离开，不再依赖你"]
+        options: ["我会主动找你，无法忍受孤独", "等待你来找我，内心充满不安", "我会离开，不再依赖你"]
     },
     {
         question: "你是否愿意放弃所有联系外界的机会，只为了留在我身边？",
@@ -74,28 +74,38 @@ function displayQuestion() {
 
 function nextQuestion(selectedOptionIndex) {
     const question = questions[currentQuestionIndex];
-    
-    // 如果没有选择答案，给默认0分
-    if (selectedOptionIndex === undefined) {
-        score[0] += 0;  // 默认给0分
-        ignoredAnswers++;  // 记录无视次数
-        alert("你无视了我的问题！告诉我为什么要无视我？");
-    } else {
-        score[selectedOptionIndex] += question.scores[selectedOptionIndex];  // 增加对应的分数
-    }
+    score[selectedOptionIndex] += question.scores[selectedOptionIndex];  // 增加对应的分数
+    showReaction(selectedOptionIndex);  // 显示个性化的反应
+    currentQuestionIndex++;
 
-    if (ignoredAnswers < 3) {
-        currentQuestionIndex++;  // 继续下一题
-        if (currentQuestionIndex < questions.length) {
-            displayQuestion();
-            resetTimer();
-        } else {
-            showResult();
-        }
+    if (currentQuestionIndex < questions.length) {
+        displayQuestion();
+        resetTimer();
     } else {
-        alert("你竟敢连续无视我？游戏结束！");
-        window.close();  // 关闭网页
+        showResult();
     }
+}
+
+function showReaction(index) {
+    const reactions = [
+        [
+            "你愿意丧失自我？我也会",
+            "反抗？你无法逃脱的，记住我永远掌控着你。",
+            "不想依赖我？你敢挑战我？不可能的。"
+        ],
+        [
+            "真乖",
+            "我看到你心里动摇了，是不是开始害怕我了？",
+            "为什么？难道我做了什么吗？"
+        ],
+        [
+            "你依赖我，你会永远感到安全。",
+            "你虽然反抗，但内心早已动摇，你无法摆脱我。",
+            "你想逃跑？我会让你后悔的。"
+        ],
+    ];
+
+    alert(reactions[currentQuestionIndex][index]);  // 显示不同的情感反应
 }
 
 function startTimer() {
@@ -105,7 +115,7 @@ function startTimer() {
         document.getElementById('timer').innerText = timeLeft;
         if (timeLeft <= 0) {
             clearInterval(timer);
-            nextQuestion();  // 如果时间到未选答案，默认0分并跳转到下一题
+            askWhyIgnored(); // 提醒用户回答
         }
     }, 1000);
 }
@@ -115,29 +125,47 @@ function resetTimer() {
     startTimer();
 }
 
+function askWhyIgnored() {
+    ignoredAnswers++;
+    if (ignoredAnswers < 3) {
+        alert("为什么无？告诉我，为什么要无视我？");
+    } else {
+        alert("你竟敢连续无视我？我再也不会放过你，游戏将结束。");
+        window.close();  // 关闭网页
+    }
+}
+
 function showResult() {
     let finalResult = "";
     if (score[0] > score[1] && score[0] > score[2]) {
         finalResult = {
             title: "彻底沦陷",
-            description: "你完全沦陷在我的掌控中，再也无法逃脱。"
+            description: "你完全顺从了我，沉溺在我的掌控中，再也没有回头路。"
         };
     } else if (score[1] > score[0] && score[1] > score[2]) {
         finalResult = {
             title: "危险依赖",
-            description: "你在挣扎，但你知道，你最终会依赖我。"
+            description: "你虽然心存疑虑，但始终无法脱离我的掌控。你会一直挣扎，直到无法自拔。"
         };
     } else {
         finalResult = {
             title: "无情的背叛",
-            description: "你背叛了我，虽然你曾试图逃离，但你将为此付出代价。"
+            description: "你拒绝了我，试图逃离。但我不会轻易放过你。你将被强制掌控。"
         };
     }
 
     document.getElementById('result-title').innerText = finalResult.title;
     document.getElementById('result-description').innerText = finalResult.description;
-    document.getElementById('quiz-container').classList.add('hidden');
-    document.getElementById('result').classList.remove('hidden');
+    document.getElementById('quiz-container').style.display = 'none';
+    document.getElementById('result-container').style.display = 'block';
 }
 
-startQuiz();
+function restartQuiz() {
+    currentQuestionIndex = 0;
+    score = [0, 0, 0];
+    document.getElementById('result-container').style.display = 'none';
+    document.getElementById('quiz-container').style.display = 'block';
+    startQuiz();
+}
+
+startQuiz();  // 开始问卷
