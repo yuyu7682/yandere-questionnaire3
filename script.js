@@ -17,7 +17,7 @@ const questions = [
     },
     {
         question: "你是否想要我彻底控制你，直到你再也没有反抗的能力？",
-        options: ["是的，我会成为你的奴隶", "不确定，但我开始动摇", "绝不，我要自由"]
+        options: ["是的，我会成为你的奴隶", "不确定，但我还是希望留在你身边", "不愿意，我不要成为你的玩物"]
     },
     {
         question: "如果你选择了背叛我，你知道会有什么后果吗？",
@@ -25,35 +25,15 @@ const questions = [
     },
     {
         question: "你是否愿意为我丧失所有的自我，成为我的专属？",
-        options: ["愿意，我会永远属于你", "犹豫，我不知道自己能不能承受", "不愿意，我不要成为你的玩物"]
+        options: ["愿意，永远都只属于你", "犹豫，我不知道自己能不能承受", "不愿意，外界才是我真正的自由"]
     },
     {
-        question: "如果我不理你，你会怎么做？",
-        options: ["主动找我，无法忍受孤独", "等待我来找你，内心充满不安", "我会离开，不再依赖你"]
-    },
-    {
-        question: "你认为，谁才是你真正需要的人？",
-        options: ["只有你，除了你没有人能替代", "也许是我，但我还是想要些许自由", "没有人，我只依赖自己"]
-    },
-    {
-        question: "如果我决定把你束缚在我的世界里，你能忍受多久？",
-        options: ["永远，我会在你身边", "也许可以，但心里会反抗", "无法忍受，我必须逃脱"]
-    },
-    {
-        question: "你认为自己能一直忍受我对你的控制吗？",
-        options: ["我会顺从，一直依赖你", "我会反抗，但终究无法摆脱", "我会逃离，你的控制让我窒息"]
-    },
-    {
-        question: "如果你想背叛我，我会如何处理你？",
-        options: ["我不会背叛你，你是我唯一的依赖", "我会反抗，但知道无法逃脱", "我无法再忍受这种控制，想要逃走"]
+        question: "如果你无视我的话，我会怎么办？",
+        options: ["我会主动找你，无法忍受孤独", "等待你来找我，内心充满不安", "我会离开，不再依赖你"]
     },
     {
         question: "你是否愿意放弃所有联系外界的机会，只为了留在我身边？",
         options: ["我愿意，永远都只属于你", "我不确定，但我还是希望留在你身边", "我不愿意，外界才是我真正的自由"]
-    },
-    {
-        question: "如果我让你彻底依赖我，你是否会感到满足？",
-        options: ["我会感到满足，依赖你就是我的全部", "我不确定，我害怕失去自我", "不，我不想完全依赖你"]
     },
 ];
 
@@ -160,25 +140,4 @@ function showResult() {
     if (score[0] > score[1] && score[0] > score[2]) {
         finalResult = {
             title: "彻底沦陷",
-            description: "你彻底丧失了所有的独立性，完全依赖于我。你将成为我唯一的所有物，无法再逃脱。"
-        };
-    } else if (score[1] > score[0] && score[1] > score[2]) {
-        finalResult = {
-            title: "危险依赖",
-            description: "你虽然内心挣扎，但始终无法离开我。你会一直依赖我，直到无法自拔。"
-        };
-    } else {
-        finalResult = {
-            title: "无情的背叛",
-            description: "你背叛了我，我不会放过你。你以为逃脱得了我的掌控吗？我会强迫你回到我身边。"
-        };
-    }
-
-    document.getElementById('result-title').innerText = finalResult.title;
-    document.getElementById('result-description').innerText = finalResult.description;
-    document.getElementById('quiz-container').classList.add('hidden');
-    document.getElementById('result').classList.remove('hidden');
-}
-
-// 启动问卷
-startQuiz();
+            description: "你
