@@ -132,6 +132,15 @@ function showReaction(index) {
     alert(reactions[currentQuestionIndex][index]);  // 显示不同的情感反应
 }
 
+function displayQuestion() {
+    const question = questions[currentQuestionIndex];
+    document.getElementById('question').innerText = question.question;
+    const options = document.querySelectorAll('.option');
+    options.forEach((button, index) => {
+        button.innerText = question.options[index];
+    });
+}
+
 function nextQuestion(selectedOptionIndex) {
     const question = questions[currentQuestionIndex];
     
