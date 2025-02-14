@@ -128,7 +128,7 @@ function resetTimer() {
 function askWhyIgnored() {
     ignoredAnswers++;
     if (ignoredAnswers < 3) {
-        alert("为什么无？告诉我，为什么要无视我？");
+        alert("为什么要无视我？快点认真回答我");
     } else {
         alert("你竟敢连续无视我？我再也不会放过你，游戏将结束。");
         window.close();  // 关闭网页
