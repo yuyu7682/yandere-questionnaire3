@@ -140,7 +140,7 @@ function startTimer() {
         document.getElementById('timer').innerText = timeLeft;
         if (timeLeft <= 0) {
             clearInterval(timer);
-            askWhyIgnored(); 
+            askWhyIgnored(); // 提醒用户回答
         }
     }, 1000);
 }
